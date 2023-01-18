@@ -1,0 +1,53 @@
+.radio,
+.radio1,
+.radio2,
+.radio3,
+.radio4 {
+  border:  1px solid rgb(32,101,209);
+  height: 10px;
+  width: 10px;
+  margin: 0 2px;
+  border-radius: 50%;
+}
+
+.radio-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .button3,
+.button5,
+.button7,
+.button9,
+.button11 {
+  color: white;
+  width: 100px;
+  border: 0cm;
+  height: 38px;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: rgb(32,101,209);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.button2,
+.button4{
+  color: white;
+  width: 150px;
+  border: 0cm;
+  height: 38px;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: rgb(32,101,209);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.textfield{
+    min-width: 480;
+}
