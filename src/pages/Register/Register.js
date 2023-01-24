@@ -14,6 +14,7 @@ import {
   MenuItem,
   Select,
   InputLabel,
+  Box
   // ImageIcon
 } from '@mui/material';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -58,6 +59,22 @@ const StyledSection = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
+  const [register, setRegister] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+    partnerType:'',
+    jobAs:'',
+    workLocationPincode: '',
+    workLocation: '',
+    firmName: '',
+    presentAddress: '',
+    permanentAddress: '',
+    aadharNumber: '',
+    religion: '',
+  });
   const mdUp = useResponsive('up', 'md');
 
   const [showPassword, setShowPassword] = useState(false);
@@ -66,15 +83,71 @@ export default function Register() {
   const [second, setsecond] = useState(false);
   const [third, setthird] = useState(false);
 
-  const [selected, setSelected] = useState('');
-  const [selectedJob, setSelectedJob] = useState('');
+  const [image, setImage] = useState();
 
-  const selectionChangeHandler = (event) => {
-    setSelected(event.target.value);
+  const handleImageFile = (e) => {
+    setImage(e.target.files[0], '&&&&');
+   // console.log(image);
+  };
+  console.log(image);
+
+  const handleChange = (event) => {
+    setRegister({ ...register, [event.target.name]: event.target.value });
   };
 
+  const partnerTypeHandler = (event) => {
+    setRegister({...register,[event.target.name]: event.target.value});
+  };
+
+
   const selectionJobHandler = (event) => {
-    setSelectedJob(event.target.value);
+    setRegister({...register,[event.target.name]: event.target.value});
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(register)
+    // try {
+    //  
+    //   const registerData = new FormData(); {
+    //     formData.append('name', register.name);
+    //     formData.append('email',register.email);
+    //     formData.append('mobile',register.mobile);
+    //     formData.append('password',register.password);
+    //     formData.append('confirmPassword',register.confirmPassword);
+    //     formData.append('partnerType',register.partnerType);
+    //     formData.append('jobAs',register.jobAs);
+    //     formData.append('workLocationPincode',register.workLocationPincode);
+    //     formData.append('workLocation',register.workLocation);
+    //     formData.append('firmName',register.firmName);
+    //     formData.append('presentAddress',register.presentAddress);
+    //     formData.append('permanentAddress',register.permanentAddress);
+    //     formData.append('aadharNumber',register.aadharNumber);
+    //     formData.append('religion',register.religion);
+    //     formData.append('image',image);
+    //   };
+    //   await dispatch(addRegister(registerData));
+    //   setRegister({
+    //     name: '',
+    //     email: '',
+    //     mobile: '',
+    //     password: '',
+    //     confirmPassword: '',
+    //     partnerType:'',
+    //     jobAs:'',
+    //     workLocationPincode: '',
+    //     workLocation: '',
+    //     firmName: '',
+    //     presentAddress: '',
+    //     permanentAddress: '',
+    //     aadharNumber: '',
+    //     religion: '',
+    //   });
+    //   setImage('');
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const toggle = (id) => {
@@ -136,13 +209,21 @@ export default function Register() {
                 Create Account
               </Typography>
               <Stack spacing={3}>
-                <TextField name="name" label="Name" />
-                <TextField name="email" label="Email address" />
-                <TextField name="mobile" label="Mobile" />
+                <TextField name="name" label="Name" type="text" value={register.name} onChange={handleChange} />
+                <TextField
+                  name="email"
+                  label="Email address"
+                  type="email"
+                  value={register.email}
+                  onChange={handleChange}
+                />
+                <TextField name="mobile" label="Mobile" type="number" value={register.mobile} onChange={handleChange} />
 
                 <TextField
                   name="password"
                   label="Password"
+                  value={register.password}
+                  onChange={handleChange}
                   type={showPassword ? 'text' : 'password'}
                   InputProps={{
                     endAdornment: (
@@ -155,8 +236,10 @@ export default function Register() {
                   }}
                 />
                 <TextField
-                  name="confirm password"
+                  name="confirmPassword"
                   label=" Confirm Password"
+                  value={register.confirmPassword}
+                  onChange={handleChange}
                   type={showPassword ? 'text' : 'password'}
                   InputProps={{
                     endAdornment: (
@@ -190,12 +273,12 @@ export default function Register() {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Partner Type</InputLabel>
                   <Select
-                    name="partnertype"
+                    name="partnerType"
                     label="Partner Type"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={selected}
-                    onChange={selectionChangeHandler}
+                    value={register.partnerType}
+                    onChange={partnerTypeHandler}
                   >
                     <MenuItem value={1}>Work Partner</MenuItem>
                     <MenuItem value={2}>Survey Partner</MenuItem>
@@ -204,20 +287,38 @@ export default function Register() {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Job As</InputLabel>
                   <Select
-                    name="jobas"
+                    name="jobAs"
                     label="Job As"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={selectedJob}
+                    value={register.jobAs}
                     onChange={selectionJobHandler}
                   >
                     <MenuItem value={1}>Individual</MenuItem>
                     <MenuItem value={2}>Having a Team</MenuItem>
                   </Select>
                 </FormControl>
-                <TextField name="worklocationpincode" label="Work Location Pincode" />
-                <TextField name="worklocation" label="Work Location" />
-                <TextField name="firmname" label="Firm Name" />
+                <TextField
+                  name="workLocationPincode"
+                  label="Work Location Pincode"
+                  type="number"
+                  value={register.workLocationPincode}
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="workLocation"
+                  label="Work Location"
+                  type="text"
+                  value={register.workLocation}
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="firmName"
+                  label="Firm Name"
+                  type="text"
+                  value={register.firmName}
+                  onChange={handleChange}
+                />
               </Stack>
               <Button
                 sx={{ justifyContent: 'left' }}
@@ -247,18 +348,58 @@ export default function Register() {
                 Address & Aadhar
               </Typography>
               <Stack spacing={3}>
-                <TextField name="presentaddress" label="Present Address" />
-                <TextField name="permanentaddress" label="Permanent Address" />
-                <TextField name="aadharnumber" label="Aadhar Number" />
                 <TextField
-                  name="uploadaadhar"
+                  name="presentAddress"
+                  label="Present Address"
+                  type="text"
+                  value={register.presentAddress}
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="permanentAddress"
+                  label="Permanent Address"
+                  type="text"
+                  value={register.permanentAddress}
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="aadharNumber"
+                  label="Aadhar Number"
+                  value={register.aadharNumber}
+                  onChange={handleChange}
+                />
+                {/* <TextField
+                  // name="uploadaadhar"
                   label="Upload Aadhar"
                   hidden
                   accept="image/*"
                   type="file"
-                />
+                  value={image}
+                  onChange={(e) => handleImageFile(e)}
+                /> */}
+                 
+                <Box sx={{ width: '100%', border:"1px solid #a6a6a6", borderRadius:"5px", ml: { xs: 0, sm: 1 }, mt: { xs: 2, sm: 0 } }}>
+                    <Button
+                        // variant="outlined"
+                        fullWidth
+                        component="label"
+                        style={{ height: '52px',color:"gray" }}
+                        value={image}
+                        onChange={(e) => handleImageFile(e)}
+                    >
+                        Upload Aadhar
+                        <input hidden accept="image/*" type="file" />
+                    </Button>
+                </Box>
 
-                <TextField name="religion" label="Religion" />
+
+                <TextField
+                  name="religion"
+                  label="Religion"
+                  type="text"
+                  value={register.religion}
+                  onChange={handleChange}
+                />
               </Stack>
               <Button
                 sx={{ justifyContent: 'left' }}
@@ -270,13 +411,14 @@ export default function Register() {
                   <b>Previous</b>
                 </p>
               </Button>
-              <Button sx={{ padding: 0, marginLeft: '285px' }}>
+              <Button sx={{ padding: 0, marginLeft: '285px' }} onClick={(e)=>handleSubmit(e)}>
                 <p className="button7">
                   <b>Next</b>
                 </p>
               </Button>
             </>
           )}
+      
           {/* </StyledContent> */}
         </Container>
       </StyledRoot>
