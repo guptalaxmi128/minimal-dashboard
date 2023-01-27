@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import {
@@ -27,6 +29,7 @@ import Iconify from '../../components/iconify';
 // sections
 // import { LoginForm } from '../sections/auth/login';
 import './Register.css';
+import { registerPartner } from '../../actions/auth/auth';
 
 // ----------------------------------------------------------------------
 
@@ -59,6 +62,8 @@ const StyledSection = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
+  const dispatch = useDispatch();
+  const navigate  = useNavigate();
   const [register, setRegister] = useState({
     name: '',
     email: '',
@@ -93,6 +98,7 @@ export default function Register() {
 
   const handleChange = (event) => {
     setRegister({ ...register, [event.target.name]: event.target.value });
+    console.log(register);
   };
 
   const partnerTypeHandler = (event) => {
@@ -104,51 +110,33 @@ export default function Register() {
     setRegister({...register,[event.target.name]: event.target.value});
   };
 
-
-  const handleSubmit = async (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(register)
-    // try {
-    //  
-    //   const registerData = new FormData(); {
-    //     formData.append('name', register.name);
-    //     formData.append('email',register.email);
-    //     formData.append('mobile',register.mobile);
-    //     formData.append('password',register.password);
-    //     formData.append('confirmPassword',register.confirmPassword);
-    //     formData.append('partnerType',register.partnerType);
-    //     formData.append('jobAs',register.jobAs);
-    //     formData.append('workLocationPincode',register.workLocationPincode);
-    //     formData.append('workLocation',register.workLocation);
-    //     formData.append('firmName',register.firmName);
-    //     formData.append('presentAddress',register.presentAddress);
-    //     formData.append('permanentAddress',register.permanentAddress);
-    //     formData.append('aadharNumber',register.aadharNumber);
-    //     formData.append('religion',register.religion);
-    //     formData.append('image',image);
-    //   };
-    //   await dispatch(addRegister(registerData));
-    //   setRegister({
-    //     name: '',
-    //     email: '',
-    //     mobile: '',
-    //     password: '',
-    //     confirmPassword: '',
-    //     partnerType:'',
-    //     jobAs:'',
-    //     workLocationPincode: '',
-    //     workLocation: '',
-    //     firmName: '',
-    //     presentAddress: '',
-    //     permanentAddress: '',
-    //     aadharNumber: '',
-    //     religion: '',
-    //   });
-    //   setImage('');
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try{
+      const formData = new FormData(); 
+      formData.append('partnerType', register.partnerType);
+      formData.append('jobAs', register.jobAs);
+      formData.append('name', register.name);
+      formData.append('email', register.email);
+      formData.append('mobile', register.mobile);
+      formData.append('password', register.password);
+      formData.append('permanentAddress', register.permanentAddress);
+      formData.append('presentAddress', register.presentAddress);
+      formData.append('firmName', register.firmName);
+      formData.append('workLocation', register.workLocation);
+      formData.append('workLocationPincode', register.workLocationPincode);
+      formData.append('aadharNumber', register.aadharNumber);
+      formData.append('religion', register.religion);
+      formData.append('aadharCard', image);
+      console.log(formData);
+      dispatch(registerPartner(formData, navigate));
+    }catch(error){
+      console.log(error);
+    }
   };
+
 
   const toggle = (id) => {
     if (id === 1) {
@@ -189,7 +177,7 @@ export default function Register() {
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
           </StyledSection>
         )}
-
+        <form onSubmit={handleSubmit}>
         <Container maxWidth="sm">
           {/* <StyledContent> */}
           <div className="radio-field" style={{ marginTop: '20px' }}>
@@ -280,8 +268,8 @@ export default function Register() {
                     value={register.partnerType}
                     onChange={partnerTypeHandler}
                   >
-                    <MenuItem value={1}>Work Partner</MenuItem>
-                    <MenuItem value={2}>Survey Partner</MenuItem>
+                    <MenuItem value="workPartner">Work Partner</MenuItem>
+                    <MenuItem value="surveyPartner">Survey Partner</MenuItem>
                   </Select>
                 </FormControl>
                 <FormControl fullWidth>
@@ -294,8 +282,8 @@ export default function Register() {
                     value={register.jobAs}
                     onChange={selectionJobHandler}
                   >
-                    <MenuItem value={1}>Individual</MenuItem>
-                    <MenuItem value={2}>Having a Team</MenuItem>
+                    <MenuItem value="individual">Individual</MenuItem>
+                    <MenuItem value="team">Having a Team</MenuItem>
                   </Select>
                 </FormControl>
                 <TextField
@@ -411,9 +399,9 @@ export default function Register() {
                   <b>Previous</b>
                 </p>
               </Button>
-              <Button sx={{ padding: 0, marginLeft: '285px' }} onClick={(e)=>handleSubmit(e)}>
+              <Button sx={{ padding: 0, marginLeft: '285px' }} type="submit">
                 <p className="button7">
-                  <b>Next</b>
+                  <b>Submit</b>
                 </p>
               </Button>
             </>
@@ -421,6 +409,7 @@ export default function Register() {
       
           {/* </StyledContent> */}
         </Container>
+      </form>
       </StyledRoot>
     </>
   );

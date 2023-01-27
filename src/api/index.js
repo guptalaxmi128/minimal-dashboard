@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api/master',
+    baseURL: 'http://localhost:5000/api/furnishi',
 });
 
 api.interceptors.request.use((req) => {

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../constants'
+import * as actionTypes from '../../constants/actionTypes'
 
 const initialState = {
     auth: localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile')) : null,

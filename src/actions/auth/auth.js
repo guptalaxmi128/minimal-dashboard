@@ -2,8 +2,9 @@ import { LOGIN, REGISTER, LOGOUT } from "../../constants/actionTypes";
 import * as api from '../../api/index'
 
 
-export const register = (formData, history) => async (dispatch) => {
+export const registerPartner = (formData, history) => async (dispatch) => {
     try {
+        console.log(formData);
         const { data } = await api.register(formData);
         dispatch({ type: REGISTER, payload: data });
         history('/');
@@ -12,7 +13,7 @@ export const register = (formData, history) => async (dispatch) => {
     }
 };
 
-export const login = (formData, history) => async (dispatch) => {
+export const loginPartner = (formData, history) => async (dispatch) => {
     try {
         const { data } = await api.login(formData);
         dispatch({ type: LOGIN, payload: data });
