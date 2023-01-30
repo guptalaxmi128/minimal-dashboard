@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -62,7 +62,7 @@ const StyledSection = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate  = useNavigate();
   const [register, setRegister] = useState({
     name: '',
@@ -131,7 +131,7 @@ export default function Register() {
       formData.append('religion', register.religion);
       formData.append('aadharCard', image);
       console.log(formData);
-      dispatch(registerPartner(formData, navigate));
+      // dispatch(registerPartner(formData, navigate));
     }catch(error){
       console.log(error);
     }

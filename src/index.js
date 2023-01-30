@@ -17,16 +17,16 @@ import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+// const store = createStore(reducers, compose(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <HelmetProvider>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    </Provider>
+    {/* </Provider> */}
   </HelmetProvider>
 );
 

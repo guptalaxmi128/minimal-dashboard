@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton,Typography } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -11,6 +11,8 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
+// import PageTitle from './PageTitle';
+
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +45,21 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+  const  changeTitle = () => {
+    switch(window.location.pathname){
+      case '/dashboard/profile':
+        return 'Profile';
+      case '/dashboard/jobs':
+        return 'Jobs';
+        case '/dashboard/order':
+          return 'Order';
+          case '/dashboard/snaglist':
+            return 'Snaglist';
+      default:
+        return 'Hi, Welcome Back';
+    }
+  }
+  const title=changeTitle();
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -55,20 +72,27 @@ export default function Header({ onOpenNav }) {
           }}
         >
           <Iconify icon="eva:menu-2-fill" />
-        </IconButton>
+        </IconButton> 
+        
 
-        <Searchbar />
+         <Typography variant="h4" gutterBottom sx={{color:"black"}}>
+            {title}
+          </Typography>
+       
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
           direction="row"
           alignItems="center"
+          justifyContent="space-between"
           spacing={{
             xs: 0.5,
             sm: 1,
           }}
         >
-          <LanguagePopover />
+         
+        <Searchbar />
+          {/* <LanguagePopover /> */}
           <NotificationsPopover />
           <AccountPopover />
         </Stack>
