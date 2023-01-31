@@ -2,10 +2,10 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 
-// import SimpleLayout from './layouts/simple';
-// import BlogPage from './pages/BlogPage';
-// import Page404 from './pages/Page404';
-// import UserPage from './pages/UserPage';
+import SimpleLayout from './layouts/simple';
+import BlogPage from './pages/BlogPage';
+import Page404 from './pages/Page404';
+import UserPage from './pages/UserPage';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import Register from './pages/Register/Register';
@@ -16,6 +16,9 @@ import Snaglist from "./pages/Snaglist/Snaglist";
 
 
 // ----------------------------------------------------------------------
+
+// const user = (JSON.parse(localStorage.getItem('profile')))
+const user = true;
 
 export default function Router() {
   const routes = useRoutes([
@@ -35,24 +38,25 @@ export default function Router() {
     
       ],
     },
-    // {
-    //   path: 'register',
-    //   element: <Register />,
-    // },
+    {
+      path: 'register',
+      element: <Register />,
+    },
    
     
-    // {
-    //   element: <SimpleLayout />,
-    //   children: [
-    //     { element: <Navigate to="/dashboard/app" />, index: true },
-    //     { path: '404', element: <Page404 /> },
-    //     { path: '*', element: <Navigate to="/404" /> },
-    //   ],
-    // },
-    // {
-    //   path: '*',
-    //   element: <Navigate to="/404" replace />,
-    // },
+    {
+      path: '/',
+      element: <SimpleLayout />,
+      children: [
+        { path: '/', element: user ? <Navigate to="/dashboard/app" /> : <Navigate to="/login" /> },
+        { path: '404', element: <Page404 /> },
+        { path: '*', element: <Navigate to="/404" /> },
+      ],
+    },
+    {
+      path: '*',
+      element: <Navigate to="/404" replace />,
+    },
   ]);
 
   return routes;

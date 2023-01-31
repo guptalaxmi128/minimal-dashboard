@@ -4,8 +4,6 @@ import 'simplebar/src/simplebar.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { applyMiddleware,createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -17,16 +15,16 @@ import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
 
-// const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <HelmetProvider>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    {/* </Provider> */}
+    </Provider>
   </HelmetProvider>
 );
 
